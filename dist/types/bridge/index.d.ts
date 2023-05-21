@@ -126,5 +126,5 @@ export declare class Bridge {
      * @param toChain
      * @param amountHm
      */
-    transfer(signer: Signer, token: BridgeToken, fromChain: BridgeChain, toChain: BridgeChain, amountHm: string | number): Promise<ethers.providers.TransactionResponse | import("@loopring-web/loopring-sdk").RESULT_INFO | import("@loopring-web/loopring-sdk").TX_HASH_RESULT<import("@loopring-web/loopring-sdk").TX_HASH_API> | import("zksync").Transaction>;
+    transfer(signer: Signer, token: BridgeToken, fromChain: BridgeChain, toChain: BridgeChain, amountHm: string | number): Promise<ethers.providers.TransactionResponse | import("@loopring-web/loopring-sdk").RESULT_INFO | import("@loopring-web/loopring-sdk").TX_HASH_RESULT<import("@loopring-web/loopring-sdk").TX_HASH_API>>;
 }

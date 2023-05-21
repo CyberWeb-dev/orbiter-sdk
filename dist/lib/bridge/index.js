@@ -297,11 +297,6 @@ class Bridge {
                 // dYdx cannot transfer out now
                 return undefined;
             }
-            // Signer
-            if (validator_1.ChainValidator.zksync(fromChain.id)) {
-                const tZksync = new transaction_1.TransactionZksync(fromChain.id, signer);
-                return yield tZksync.transfer(transferOptions);
-            }
             // Evm transaction
             const tEvm = new transaction_1.TransactionEvm(fromChain.id, signer);
             return yield tEvm.transfer(transferOptions);

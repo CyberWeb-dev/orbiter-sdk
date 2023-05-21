@@ -7,7 +7,6 @@ import { core, DydxHelper } from '../orbiter-sdk'
 import {
   TransactionEvm,
   TransactionLoopring,
-  TransactionZksync,
 } from '../transaction'
 import { TransactionTransferOptions } from '../transaction/transaction'
 import { ensureMetamaskNetwork, equalsIgnoreCase } from '../utils'
@@ -383,12 +382,6 @@ export class Bridge {
     if (ChainValidator.dydx(fromChain.id)) {
       // dYdx cannot transfer out now
       return undefined
-    }
-
-    // Signer
-    if (ChainValidator.zksync(fromChain.id)) {
-      const tZksync = new TransactionZksync(fromChain.id, signer)
-      return await tZksync.transfer(transferOptions)
     }
 
     // Evm transaction

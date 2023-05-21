@@ -15,7 +15,6 @@ var __exportStar = (this && this.__exportStar) || function(m, exports) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 __exportStar(require("./transaction_evm"), exports);
-__exportStar(require("./transaction_zksync"), exports);
 __exportStar(require("./transaction_loopring"), exports);
 __exportStar(require("./transaction_dydx"), exports);
 //# sourceMappingURL=index.js.map
