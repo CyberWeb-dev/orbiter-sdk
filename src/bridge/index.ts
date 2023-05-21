@@ -3,10 +3,9 @@ import { Web3Provider } from '@ethersproject/providers'
 import { ethers, Signer, utils, Wallet } from 'ethers'
 import Web3 from 'web3'
 import config from '../config'
-import { core, DydxHelper, IMXHelper } from '../orbiter-sdk'
+import { core, DydxHelper } from '../orbiter-sdk'
 import {
   TransactionEvm,
-  TransactionImmutablex,
   TransactionLoopring,
   TransactionZksync,
 } from '../transaction'
@@ -99,15 +98,6 @@ export class Bridge {
   ) {
     const web3Provider = <Web3Provider>signer.provider
 
-    // immutablex
-    let immutablexChainId = 0
-    if (
-      ChainValidator.immutablex((immutablexChainId = fromChain.id)) ||
-      ChainValidator.immutablex((immutablexChainId = toChain.id))
-    ) {
-      const imxHelper = new IMXHelper(immutablexChainId, signer)
-      await imxHelper.ensureUser(accountAddress)
-    }
 
     // dYdX
     let dydxChainId = 0
@@ -279,11 +269,14 @@ export class Bridge {
     const { tradingFee, precision, minPrice, maxPrice } = targetMakerInfo
 
     // Check minPrice, maxPrice
+    //@ts-ignore
     if (amountHm < minPrice) {
       throw new Error(
         `Orbiter get amounts failed: amount less than minPrice(${minPrice}), token: ${token.name}, fromChain: ${fromChain.name}, toChain: ${toChain.name}`
       )
     }
+
+    //@ts-ignore
     if (amountHm > maxPrice) {
       throw new Error(
         `Orbiter get amounts failed: amount greater than maxPrice(${maxPrice}), token: ${token.name}, fromChain: ${fromChain.name}, toChain: ${toChain.name}`
@@ -396,14 +389,6 @@ export class Bridge {
     if (ChainValidator.zksync(fromChain.id)) {
       const tZksync = new TransactionZksync(fromChain.id, signer)
       return await tZksync.transfer(transferOptions)
-    }
-    if (ChainValidator.immutablex(fromChain.id)) {
-      const tImx = new TransactionImmutablex(fromChain.id, signer)
-      return await tImx.transfer({
-        ...transferOptions,
-        decimals: token.precision,
-        symbol: token.name,
-      })
     }
 
     // Evm transaction

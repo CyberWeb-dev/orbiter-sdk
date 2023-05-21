@@ -119,7 +119,6 @@
   },
   "dependencies": {
     "@dydxprotocol/v3-client": "^1.8.2",
-    "@imtbl/imx-sdk": "^1.15.0",
     "@loopring-web/loopring-sdk": "1.8.17",
     "axios": "^0.26.1",
     "bignumber.js": "^9.0.2",
